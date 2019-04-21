@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <bean id="say" class="com.hello.demo.SayImpl">
+        <property name="name" value="fengsigaoju"></property>
+    </bean>
+    <bean id="bf" class="com.hello.aop.BeforeSay">
+    </bean>
+    <bean id="af" class="com.hello.aop.AfterSay">
+    </bean>
+
+    <aop:config>
+        <aop:aspect ref="bf"><!-- 具体哪一个切入类 -->
+            <aop:pointcut id="aop" expression="execution(* com.hello.demo.SayImpl.say(..))"/>
+            <aop:before method="beforesay" pointcut-ref="aop"/>
+<!--            <aop:before method="beforesay" pointcut="execution(* com.hello.demo.SayImpl.say(..))"></aop:before>&lt;!&ndash; method为类的某个方法，ref是哪一个类,pointcut是执行到那边增强（即切入点的表达式，调用该方法增强 &ndash;&gt;-->
+        </aop:aspect>
+        <aop:aspect ref="af">
+            <aop:after method="aftersay" pointcut="execution(* com.hello.demo.SayImpl.say(..))"></aop:after><!-- 具体 -->
+        </aop:aspect>
+    </aop:config>
+
+</beans>
