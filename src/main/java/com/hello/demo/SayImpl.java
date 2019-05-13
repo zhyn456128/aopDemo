@@ -14,5 +14,6 @@ public class SayImpl implements Say{
     @Override
     public void say() {
         System.out.println("hello,"+name);
+        System.out.println("test,"+name);
     }
 }
